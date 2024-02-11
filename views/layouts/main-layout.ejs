@@ -1,0 +1,66 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/thinline.css">
+    <title><%- title %></title>
+  </head>
+  <body>
+    <%- body %>
+  </body>
+
+  <script>
+    const typedText = document.querySelector(".typed-text");
+    const cursor = document.querySelector(".cursor");
+
+    const textArray = ["Front End Developer 🚀", "I'm 19 years old"];
+
+    let textArrayIndex = 0;
+    let charIndex = 0;
+
+    async function type() {
+      while (true) {
+        while (charIndex < textArray[textArrayIndex].length) {
+          typedText.textContent += textArray[textArrayIndex][charIndex];
+          charIndex++;
+          await delay(120);
+        }
+        await delay(1000);
+        while (charIndex > 0) {
+          typedText.textContent = textArray[textArrayIndex].slice(0, charIndex - 1);
+          charIndex--;
+          await delay(50);
+        }
+        await delay(1000);
+        textArrayIndex = (textArrayIndex + 1) % textArray.length;
+      }
+    }
+    function delay(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+    document.addEventListener("DOMContentLoaded", () => { type(); });
+  </script>
+  <script>
+    const scrollToTopBtn = document.querySelector(".scrollBtn");
+    const rootElement = document.documentElement;
+
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      if (window.pageYOffset > 200) {
+        scrollToTopBtn.classList.add("showBtn");
+      } else {
+        scrollToTopBtn.classList.remove("showBtn");
+      }
+    }
+
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    scrollToTopBtn.addEventListener("click", scrollToTop);
+    document.addEventListener("scroll", handleScroll);
+  </script>
+</html>
